@@ -1,5 +1,6 @@
 package de.mpaga.learn.spring.cache;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
@@ -11,12 +12,13 @@ import org.springframework.stereotype.Component;
 public class CachedServiceImpl implements CachedService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CachedService.class);
+    private static volatile int numberOfCalls = 0;
 
     @Cacheable("default")
     public String longRunning(String input){
         LOGGER.info("longRunning operation really called");
 
-        LOGGER.info("Finished waiting for long running operation.");
+        numberOfCalls ++;
         return "success";
     }
 
@@ -25,4 +27,12 @@ public class CachedServiceImpl implements CachedService {
         LOGGER.info("evict");
     }
 
+    protected static void resetNumberOfCalls(){
+        numberOfCalls = 0;
+    }
+
+    @VisibleForTesting
+    protected static int getNumberOfCalls() {
+        return numberOfCalls;
+    }
 }
