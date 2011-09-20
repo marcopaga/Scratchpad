@@ -1,14 +1,41 @@
-*~
-*.lock
-*.DS_Store
-*.swp
-*.out
-
+# use glob syntax.
+syntax: glob
+*.ser
 *.class
-*.jar
+*~
+*.bak
+#*.off
+*.old
+
+# eclipse conf file
+.settings
 .classpath
 .project
-.settings/
-target/
-.idea/
+.manager
+.scala_dependencies
+
+# idea
+.idea
 *.iml
+
+# building
+target
+build
+null
+tmp*
+temp*
+dist
+test-output
+build.log
+
+# other scm
+.svn
+.CVS
+.hg*
+
+# switch to regexp syntax.
+#  syntax: regexp
+#  ^\.pc/
+
+#SHITTY output not in target directory
+build.log
